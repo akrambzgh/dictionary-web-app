@@ -7,7 +7,7 @@ function App() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch("https://api.dictionaryapi.dev/api/v2/entries/en/keyboard")
+    fetch("https://api.dictionaryapi.dev/api/v2/entries/en/dog")
       .then((response) => response.json())
       .then((data) => {
         setDefinitions(data);
@@ -31,10 +31,9 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Definitions:</h1>
-      <strong>Word:</strong> {definitions[0].word} <br />
+      <h1>{definitions[0].word}</h1>
       <div className="audio">
-        <strong>Phonetic:</strong> {definitions[0].phonetics[1]?.text} <br />
+        <h3>{definitions[0].phonetics[1]?.text}</h3>
         {definitions[0].phonetics[0].audio ? (
           <audio controls src={definitions[0].phonetics[0]?.audio}>
             Your browser does not support the audio element.
@@ -48,29 +47,36 @@ function App() {
             Your browser does not support the audio element.
           </audio>
         )}
-        <br />
       </div>
-      <ul>
+      <div className="meanings">
         {definitions[0].meanings.map((meaning, meaningIndex) => (
-          <li key={meaningIndex}>
-            <strong>Part of Speech:</strong> {meaning.partOfSpeech} <br />
-            <strong>Meaning:</strong> <br />
-            {meaning.definitions[0]?.definition}
-            <br />
-            {meaning.definitions[1]?.definition} <br />
-            {meaning.definitions[2]?.definition} <br />
-            <strong>Synonyms: </strong>
-            {meaning.synonyms[0]}
-            <br />
-            {meaning.definitions[0]?.example && (
-              <>
-                <strong>Example:</strong> {meaning.definitions[0]?.example}
-                <br />
-              </>
+          <div className="meaning" key={meaningIndex}>
+            <h2>{meaning.partOfSpeech}</h2>
+            <h3>Meaning</h3>
+            <ul>
+              <li>{meaning.definitions[0]?.definition}</li>
+              {meaning.definitions[1]?.definition && (
+                <li>{meaning.definitions[1]?.definition}</li>
+              )}
+              {meaning.definitions[2]?.definition && (
+                <li>{meaning.definitions[2]?.definition}</li>
+              )}
+              {meaning.definitions[0]?.example && (
+                <span className="example">
+                  {meaning.definitions[0]?.example}
+                </span>
+              )}
+            </ul>
+            {meaning.synonyms[0] === "" ? (
+              <div className="synonims">
+                <span>Synonyms</span> <span>{meaning.synonyms[0]}</span>
+              </div>
+            ) : (
+              <div></div>
             )}
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }
