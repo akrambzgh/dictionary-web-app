@@ -1,5 +1,5 @@
 .App {
-  width: 50%;
+  width: 60%;
   height: 100%;
   margin-inline: auto;
 }
@@ -50,6 +50,7 @@
   left: -50%;
   top: 115%;
   border: 1px solid;
+  list-style: none;
   opacity: 0;
   visibility: hidden;
   transition: 300ms;
@@ -122,4 +123,47 @@
 }
 .search img {
   width: 20px;
+}
+
+.main .main-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.main .word-texts h1 {
+  font-size: 50px;
+  margin-bottom: 5px;
+}
+
+.main .word-texts h3 {
+  color: #9558cf;
+  font-size: 18px;
+  font-weight: 500;
+  font-family: sans-serif;
+}
+
+.audio {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  background-color: rgba(149, 88, 207, 0.35);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.audio img {
+  width: 30px;
+}
+audio {
+  position: absolute;
+  opacity: 0;
+  visibility: hidden;
 }

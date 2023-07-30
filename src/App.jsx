@@ -1,13 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./App.css";
 import Header from "./components/Header";
 import Search from "./components/Search";
+
 function App() {
   const [definitions, setDefinitions] = useState([]);
   const [search, setSearch] = useState("keyboard");
   const [isLoading, setIsLoading] = useState(true);
   const [isDarkTheme, setIsDarkTheme] = useState(false);
   const [error, setError] = useState(null);
+
+  const audioRef = useRef(null);
 
   useEffect(() => {
     fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${search}`)
@@ -41,59 +44,80 @@ function App() {
     setIsDarkTheme((prevIsDarkTheme) => !prevIsDarkTheme);
   }
 
+  const handlePlay = () => {
+    console.log("hello");
+    const audioElement = audioRef.current;
+    if (audioElement.paused || audioElement.ended) {
+      audioElement.play();
+    } else {
+      audioElement.currentTime = 0;
+    }
+  };
+
   return (
     <div className="App">
       <Header isDarkTheme={isDarkTheme} handleTheme={handleTheme} />
       <Search search={search} getWord={getWord} />
-      <h1>{definitions[0].word}</h1>
-      <div className="audio">
-        <h3>{definitions[0].phonetics[1]?.text}</h3>
-        {definitions[0].phonetics[0].audio ? (
-          <audio controls src={definitions[0].phonetics[0]?.audio}>
-            Your browser does not support the audio element.
-          </audio>
-        ) : (
-          <audio controls>
-            <source
+      <main className="main">
+        <div className="main-info">
+          {definitions[0].phonetics[0].audio ? (
+            <audio
+              ref={audioRef}
+              controls
+              src={definitions[0].phonetics[0]?.audio}
+            >
+              Your browser does not support the audio element.
+            </audio>
+          ) : (
+            <audio
+              ref={audioRef}
+              controls
               src={definitions[0].phonetics[2]?.audio}
-              type="audio/mpeg"
-            />
-            Your browser does not support the audio element.
-          </audio>
-        )}
-      </div>
-      <div className="meanings">
-        {definitions[0].meanings.map((meaning, meaningIndex) => (
-          <div className="meaning" key={meaningIndex}>
-            <h2>{meaning.partOfSpeech}</h2>
-            <h3>Meaning</h3>
-            <ul>
-              <li>{meaning.definitions[0]?.definition}</li>
-              {meaning.definitions[1]?.definition && (
-                <li>{meaning.definitions[1]?.definition}</li>
-              )}
-              {meaning.definitions[2]?.definition && (
-                <li>{meaning.definitions[2]?.definition}</li>
-              )}
-              {meaning.definitions[0]?.example && (
-                <span className="example">
-                  {meaning.definitions[0]?.example}
-                </span>
-              )}
-              {meaning.definitions[1]?.example && (
-                <span className="example">
-                  {meaning.definitions[1]?.example}
-                </span>
-              )}
-            </ul>
-            {meaning.synonyms[0] && meaning.synonyms[0] !== "" && (
-              <div className="synonims">
-                <span>Synonyms </span> <span>{meaning.synonyms[0]}</span>
-              </div>
-            )}
+            >
+              Your browser does not support the audio element.
+            </audio>
+          )}
+          <div className="word-texts">
+            <h1>{definitions[0].word}</h1>
+            <h3>{definitions[0].phonetics[1]?.text}</h3>
           </div>
-        ))}
-      </div>
+          <div className="audio" onClick={handlePlay}>
+            <img src="./play.png" alt="" />
+          </div>
+        </div>
+        <div className="meanings">
+          {definitions[0].meanings.map((meaning, meaningIndex) => (
+            <div className="meaning" key={meaningIndex}>
+              <h2>{meaning.partOfSpeech}</h2>
+              <h3>Meaning</h3>
+              <ul>
+                <li>{meaning.definitions[0]?.definition}</li>
+                {meaning.definitions[1]?.definition && (
+                  <li>{meaning.definitions[1]?.definition}</li>
+                )}
+                {meaning.definitions[2]?.definition && (
+                  <li>{meaning.definitions[2]?.definition}</li>
+                )}
+                {meaning.definitions[0]?.example && (
+                  <span className="example">
+                    {meaning.definitions[0]?.example}
+                  </span>
+                )}
+                {meaning.definitions[1]?.example && (
+                  <span className="example">
+                    {meaning.definitions[1]?.example}
+                  </span>
+                )}
+              </ul>
+              {meaning.synonyms[0] && meaning.synonyms[0] !== "" && (
+                <div className="synonims">
+                  <span>Synonyms </span> <span>{meaning.synonyms[0]}</span>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </main>
     </div>
   );
 }
