@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-
+import Header from "./components/Header";
+import Search from "./components/Search";
 function App() {
   const [definitions, setDefinitions] = useState([]);
+  const [search, setSearch] = useState("keyboard");
   const [isLoading, setIsLoading] = useState(true);
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch("https://api.dictionaryapi.dev/api/v2/entries/en/dog")
+    fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${search}`)
       .then((response) => response.json())
       .then((data) => {
         setDefinitions(data);
@@ -27,10 +30,21 @@ function App() {
   if (error) {
     return <div>Error: {error}</div>;
   }
+
   console.log(definitions[0]);
+
+  function getWord(e) {
+    setSearch(e.target.value);
+  }
+
+  function handleTheme() {
+    setIsDarkTheme((prevIsDarkTheme) => !prevIsDarkTheme);
+  }
 
   return (
     <div className="App">
+      <Header isDarkTheme={isDarkTheme} handleTheme={handleTheme} />
+      <Search search={search} getWord={getWord} />
       <h1>{definitions[0].word}</h1>
       <div className="audio">
         <h3>{definitions[0].phonetics[1]?.text}</h3>
@@ -66,13 +80,16 @@ function App() {
                   {meaning.definitions[0]?.example}
                 </span>
               )}
+              {meaning.definitions[1]?.example && (
+                <span className="example">
+                  {meaning.definitions[1]?.example}
+                </span>
+              )}
             </ul>
-            {meaning.synonyms[0] === "" ? (
+            {meaning.synonyms[0] && meaning.synonyms[0] !== "" && (
               <div className="synonims">
-                <span>Synonyms</span> <span>{meaning.synonyms[0]}</span>
+                <span>Synonyms </span> <span>{meaning.synonyms[0]}</span>
               </div>
-            ) : (
-              <div></div>
             )}
           </div>
         ))}

@@ -1,0 +1,125 @@
+.App {
+  width: 50%;
+  height: 100%;
+  margin-inline: auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 0;
+}
+
+.header .actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header .actions .fonts {
+  position: relative;
+  padding-right: 25px;
+  border-right: 1px solid gray;
+}
+
+.header .actions .fonts span.selected-font {
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: capitalize;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.header .actions .fonts span.selected-font img {
+  width: 20px;
+}
+
+.header .actions .fonts ul {
+  position: absolute;
+  border-radius: 10px;
+  width: 150px;
+  left: -50%;
+  top: 115%;
+  border: 1px solid;
+  opacity: 0;
+  visibility: hidden;
+  transition: 300ms;
+}
+
+.header .actions .fonts ul.show {
+  opacity: 1;
+  visibility: visible;
+  top: 114%;
+}
+.header .actions .fonts ul li {
+  font-size: 16px;
+  text-transform: capitalize;
+  padding: 15px;
+  cursor: pointer;
+}
+
+.header .actions .fonts ul li:not(:last-child) {
+  border-bottom: 1px solid;
+}
+
+.header .actions .theme-switcher {
+  position: relative;
+  width: 64px;
+  height: 23px;
+  background-color: #777777;
+  margin-inline: 25px 10px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: 300ms;
+}
+
+.header .actions .theme-switcher::before {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 15px;
+  height: 15px;
+  background: white;
+  border-radius: 50%;
+  transition: 300ms;
+}
+
+.header .actions .theme-switcher.on::before {
+  transform: translate(39px, -50%);
+}
+
+.header .actions img.theme-img {
+  width: 30px;
+}
+
+.search {
+  width: 100%;
+  border-radius: 10px;
+  background: #eee;
+  border: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 10px;
+}
+.search input {
+  width: 100%;
+  background-color: #eee;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+}
+.search img {
+  width: 20px;
+}
