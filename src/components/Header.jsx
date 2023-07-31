@@ -1,18 +1,40 @@
 /* eslint-disable react/prop-types */
 
-function Header({ isDarkTheme, handleTheme }) {
+function Header({
+  showList,
+  font,
+  isShown,
+  getFont,
+  fonts,
+  isDarkTheme,
+  handleTheme,
+}) {
   return (
     <header className="header">
       <img src="./dictionary-logo.png" alt="" />
       <div className="actions">
         <div className="fonts">
-          <span className="selected-font">
-            serif <img src="./arrow.png" alt="" />
+          <span className="selected-font" onClick={showList}>
+            {font} <img src="./arrow.png" alt="" />
           </span>
-          <ul className="fonts-list">
-            <li className="font">serif</li>
-            <li className="font">comic sans</li>
-            <li className="font">monospace</li>
+          <ul className={isShown ? "fonts-list show" : "fonts-list"}>
+            <li className="font" onClick={getFont} data-font-name={fonts.serif}>
+              serif
+            </li>
+            <li
+              className="font"
+              onClick={getFont}
+              data-font-name={fonts.sansSerif}
+            >
+              sans-serif
+            </li>
+            <li
+              className="font"
+              onClick={getFont}
+              data-font-name={fonts.monospace}
+            >
+              monospace
+            </li>
           </ul>
         </div>
         <div

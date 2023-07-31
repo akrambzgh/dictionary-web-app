@@ -1,5 +1,4 @@
 :root {
-  font-family: serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -60,4 +59,8 @@ input:focus {
 ul {
   padding-left: 0;
   margin: 0;
+}
+
+::marker {
+  color: #9558cf;
 }

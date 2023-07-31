@@ -1,19 +1,39 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import "./App.css";
+import {
+  useDefinitions,
+  useSearch,
+  useIsLoading,
+  useIsDarkTheme,
+  useIsShown,
+  useWord,
+  useFont,
+  useError,
+} from "./state";
 import Header from "./components/Header";
 import Search from "./components/Search";
+import Meanings from "./components/Meanings";
+import MainInfo from "./components/MainInfo";
+import Source from "./components/Source";
 
 function App() {
-  const [definitions, setDefinitions] = useState([]);
-  const [search, setSearch] = useState("keyboard");
-  const [isLoading, setIsLoading] = useState(true);
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
-  const [error, setError] = useState(null);
+  const [definitions, setDefinitions] = useDefinitions();
+  const [search, setSearch] = useSearch();
+  const [isLoading, setIsLoading] = useIsLoading();
+  const [isDarkTheme, setIsDarkTheme] = useIsDarkTheme();
+  const [isShown, setIsShown] = useIsShown();
+  const [word, setWord] = useWord();
+  const [font, setFont] = useFont();
+  const [error, setError] = useError();
 
   const audioRef = useRef(null);
 
+  const searchInDictionary = () => {
+    setWord(search);
+  };
+  console.log(search);
   useEffect(() => {
-    fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${search}`)
+    fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
       .then((response) => response.json())
       .then((data) => {
         setDefinitions(data);
@@ -24,8 +44,10 @@ function App() {
         setError("Error fetching data.");
         setIsLoading(false);
       });
-  }, []);
+    localStorage.setItem("font", JSON.stringify(font));
+  }, [font, word]);
 
+  console.log(definitions[0]);
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -36,16 +58,15 @@ function App() {
 
   console.log(definitions[0]);
 
-  function getWord(e) {
+  const getWord = (e) => {
     setSearch(e.target.value);
-  }
+  };
 
-  function handleTheme() {
+  const handleTheme = () => {
     setIsDarkTheme((prevIsDarkTheme) => !prevIsDarkTheme);
-  }
+  };
 
   const handlePlay = () => {
-    console.log("hello");
     const audioElement = audioRef.current;
     if (audioElement.paused || audioElement.ended) {
       audioElement.play();
@@ -54,69 +75,49 @@ function App() {
     }
   };
 
+  let style = {
+    fontFamily: font,
+  };
+  let fonts = {
+    serif: "serif",
+    sansSerif: "sans-serif",
+    monospace: "monospace",
+  };
+
+  const showList = () => {
+    setIsShown((prevIsShown) => !prevIsShown);
+  };
+
+  const getFont = (event) => {
+    const selectedFont = event.target.dataset.fontName;
+    setFont(selectedFont);
+    setIsShown(false);
+  };
+
   return (
-    <div className="App">
-      <Header isDarkTheme={isDarkTheme} handleTheme={handleTheme} />
-      <Search search={search} getWord={getWord} />
+    <div className="App" style={style}>
+      <Header
+        showList={showList}
+        isShown={isShown}
+        font={font}
+        getFont={getFont}
+        fonts={fonts}
+        isDarkTheme={isDarkTheme}
+        handleTheme={handleTheme}
+      />
+      <Search
+        search={search}
+        getWord={getWord}
+        searchInDictionary={searchInDictionary}
+      />
       <main className="main">
-        <div className="main-info">
-          {definitions[0].phonetics[0].audio ? (
-            <audio
-              ref={audioRef}
-              controls
-              src={definitions[0].phonetics[0]?.audio}
-            >
-              Your browser does not support the audio element.
-            </audio>
-          ) : (
-            <audio
-              ref={audioRef}
-              controls
-              src={definitions[0].phonetics[2]?.audio}
-            >
-              Your browser does not support the audio element.
-            </audio>
-          )}
-          <div className="word-texts">
-            <h1>{definitions[0].word}</h1>
-            <h3>{definitions[0].phonetics[1]?.text}</h3>
-          </div>
-          <div className="audio" onClick={handlePlay}>
-            <img src="./play.png" alt="" />
-          </div>
-        </div>
-        <div className="meanings">
-          {definitions[0].meanings.map((meaning, meaningIndex) => (
-            <div className="meaning" key={meaningIndex}>
-              <h2>{meaning.partOfSpeech}</h2>
-              <h3>Meaning</h3>
-              <ul>
-                <li>{meaning.definitions[0]?.definition}</li>
-                {meaning.definitions[1]?.definition && (
-                  <li>{meaning.definitions[1]?.definition}</li>
-                )}
-                {meaning.definitions[2]?.definition && (
-                  <li>{meaning.definitions[2]?.definition}</li>
-                )}
-                {meaning.definitions[0]?.example && (
-                  <span className="example">
-                    {meaning.definitions[0]?.example}
-                  </span>
-                )}
-                {meaning.definitions[1]?.example && (
-                  <span className="example">
-                    {meaning.definitions[1]?.example}
-                  </span>
-                )}
-              </ul>
-              {meaning.synonyms[0] && meaning.synonyms[0] !== "" && (
-                <div className="synonims">
-                  <span>Synonyms </span> <span>{meaning.synonyms[0]}</span>
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
+        <MainInfo
+          definitions={definitions}
+          audioRef={audioRef}
+          handlePlay={handlePlay}
+        />
+        <Meanings definitionsArr={definitions} />
+        <Source definitions={definitions} />
       </main>
     </div>
   );

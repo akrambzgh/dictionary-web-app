@@ -50,6 +50,7 @@
   left: -50%;
   top: 115%;
   border: 1px solid;
+  background-color: white;
   list-style: none;
   opacity: 0;
   visibility: hidden;
@@ -66,6 +67,10 @@
   text-transform: capitalize;
   padding: 15px;
   cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .header .actions .fonts ul li:not(:last-child) {
@@ -74,7 +79,7 @@
 
 .header .actions .theme-switcher {
   position: relative;
-  width: 64px;
+  width: 50px;
   height: 23px;
   background-color: #777777;
   margin-inline: 25px 10px;
@@ -97,7 +102,7 @@
 }
 
 .header .actions .theme-switcher.on::before {
-  transform: translate(39px, -50%);
+  transform: translate(25px, -50%);
 }
 
 .header .actions img.theme-img {
@@ -114,6 +119,7 @@
   align-items: center;
   padding-right: 10px;
 }
+
 .search input {
   width: 100%;
   background-color: #eee;
@@ -121,15 +127,21 @@
   border-radius: 10px;
   font-weight: 600;
 }
+
 .search img {
   width: 20px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .main .main-info {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 15px;
 }
 
 .main .word-texts h1 {
@@ -149,7 +161,7 @@
   height: 75px;
   border-radius: 50%;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-  background-color: rgba(149, 88, 207, 0.35);
+  background-color: rgba(149, 88, 207, 0.25);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -159,11 +171,94 @@
   -ms-user-select: none;
   user-select: none;
 }
+
 .audio img {
   width: 30px;
 }
+
 audio {
   position: absolute;
   opacity: 0;
   visibility: hidden;
+}
+
+.meanings {
+  overflow-x: hidden;
+  margin-top: 20px;
+}
+
+.meanings .meaning {
+  border-bottom: 1px solid #eee;
+  padding-block: 10px;
+}
+
+.meanings .meaning h2 {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  font-family: cursive;
+  font-style: italic;
+  margin-bottom: 20px;
+}
+
+.meanings .meaning h2 .line {
+  width: 100%;
+  height: 1px;
+  background: #eee;
+}
+
+.meanings .meaning h3 {
+  color: gray;
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.meanings .meaning ul {
+  margin-left: 50px;
+  margin-bottom: 30px;
+}
+
+.meanings .meaning ul li {
+  font-size: 18px;
+  letter-spacing: 1px;
+  line-height: 1.6;
+}
+
+.meanings .meaning .synonyms {
+  font-size: 20px;
+}
+
+.meanings .meaning .synonyms .synonyms > span {
+  color: gray;
+}
+
+.meanings .meaning .synonyms .synonyme-word {
+  color: #9558cf;
+  letter-spacing: 1px;
+  font-weight: 700;
+  font-family: sans-serif;
+}
+.meanings .meaning ul .example {
+  display: block;
+  font-size: 18px;
+  color: #777777;
+  margin-top: 7px;
+}
+
+.source {
+  padding-block: 12px;
+}
+
+.source h3 {
+  font-family: sans-serif;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 15px;
+  color: gray;
+}
+.source a {
+  color: #3f3e3e;
 }
