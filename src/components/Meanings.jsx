@@ -25,13 +25,14 @@ function Meanings({ definitionsArr }) {
                 &quot;
               </span>
             )}
-            {meaning.definitions[1]?.example && (
-              <span className="example">
-                &quot;
-                {meaning.definitions[1]?.example}
-                &quot;
-              </span>
-            )}
+            {meaning.definitions[1]?.example &&
+              !meaning.definitions[0]?.example && (
+                <span className="example">
+                  &quot;
+                  {meaning.definitions[1]?.example}
+                  &quot;
+                </span>
+              )}
           </ul>
           {meaning.synonyms[0] && meaning.synonyms[0] !== "" && (
             <div className="synonyms">

@@ -10,6 +10,10 @@ function MainInfo({ definitions, audioRef, handlePlay }) {
         <audio ref={audioRef} controls src={definitions[0].phonetics[2]?.audio}>
           Your browser does not support the audio element.
         </audio>
+      ) : definitions[0]?.phonetics[3]?.audio ? (
+        <audio ref={audioRef} controls src={definitions[0].phonetics[3]?.audio}>
+          Your browser does not support the audio element.
+        </audio>
       ) : definitions[0]?.phonetics[4]?.audio ? (
         <audio ref={audioRef} controls src={definitions[0].phonetics[4]?.audio}>
           Your browser does not support the audio element.
@@ -35,6 +39,10 @@ function MainInfo({ definitions, audioRef, handlePlay }) {
         <div className="audio" onClick={handlePlay}>
           <img src="./play.png" alt="" />
         </div>
+      ) : definitions[0]?.phonetics[3]?.audio ? (
+        <div className="audio" onClick={handlePlay}>
+          <img src="./play.png" alt="" />
+        </div>
       ) : definitions[0]?.phonetics[4]?.audio ? (
         <div className="audio" onClick={handlePlay}>
           <img src="./play.png" alt="" />
@@ -42,9 +50,6 @@ function MainInfo({ definitions, audioRef, handlePlay }) {
       ) : (
         <div></div>
       )}
-      {/* <div className="audio" onClick={handlePlay}>
-        <img src="./play.png" alt="" />
-      </div> */}
     </div>
   );
 }

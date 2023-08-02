@@ -97,30 +97,32 @@ function App() {
 
   return (
     <div className="App" style={style}>
-      <Header
-        showList={showList}
-        isShown={isShown}
-        font={font}
-        getFont={getFont}
-        fonts={fonts}
-        isDarkTheme={isDarkTheme}
-        handleTheme={handleTheme}
-      />
-      <Search
-        search={search}
-        getWord={getWord}
-        searchInDictionary={searchInDictionary}
-      />
-      <main className="main">
-        <MainInfo
-          definitions={definitions}
-          audioRef={audioRef}
-          handlePlay={handlePlay}
+      <div className="container">
+        <Header
+          showList={showList}
+          isShown={isShown}
+          font={font}
+          getFont={getFont}
+          fonts={fonts}
+          isDarkTheme={isDarkTheme}
+          handleTheme={handleTheme}
         />
-        <Meanings definitionsArr={definitions} />
-        <Source definitions={definitions} />
-        <WordNotFound definitions={definitions} />
-      </main>
+        <Search
+          search={search}
+          getWord={getWord}
+          searchInDictionary={searchInDictionary}
+        />
+        <main className="main">
+          <MainInfo
+            definitions={definitions}
+            audioRef={audioRef}
+            handlePlay={handlePlay}
+          />
+          <Meanings definitionsArr={definitions} />
+          <Source definitions={definitions} />
+          <WordNotFound definitions={definitions} />
+        </main>
+      </div>
     </div>
   );
 }

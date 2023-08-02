@@ -11,7 +11,7 @@ function Header({
 }) {
   return (
     <header className="header">
-      <img src="./dictionary-logo.png" alt="" />
+      <img src="./book-dictionary.png" alt="" />
       <div className="actions">
         <div className="fonts">
           <span className="selected-font" onClick={showList}>
