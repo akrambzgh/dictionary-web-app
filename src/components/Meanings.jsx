@@ -3,7 +3,7 @@
 function Meanings({ definitionsArr }) {
   return (
     <div className="meanings">
-      {definitionsArr[0].meanings.map((meaning, meaningIndex) => (
+      {definitionsArr[0]?.meanings?.map((meaning, meaningIndex) => (
         <div className="meaning" key={meaningIndex}>
           <h2>
             {meaning.partOfSpeech}

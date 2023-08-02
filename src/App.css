@@ -262,3 +262,16 @@ audio {
 .source a {
   color: #3f3e3e;
 }
+
+.error {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 344px;
+}
+
+.error h1 {
+  color: #9558cf;
+  text-transform: capitalize;
+}

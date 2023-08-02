@@ -15,6 +15,7 @@ import Search from "./components/Search";
 import Meanings from "./components/Meanings";
 import MainInfo from "./components/MainInfo";
 import Source from "./components/Source";
+import WordNotFound from "./components/WordNotFound";
 
 function App() {
   const [definitions, setDefinitions] = useDefinitions();
@@ -118,6 +119,7 @@ function App() {
         />
         <Meanings definitionsArr={definitions} />
         <Source definitions={definitions} />
+        <WordNotFound definitions={definitions} />
       </main>
     </div>
   );
