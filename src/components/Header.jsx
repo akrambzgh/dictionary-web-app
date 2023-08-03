@@ -18,18 +18,22 @@ function Header({
             {font} <img src="./arrow.png" alt="" />
           </span>
           <ul className={isShown ? "fonts-list show" : "fonts-list"}>
-            <li className="font" onClick={getFont} data-font-name={fonts.serif}>
+            <li
+              className="font serif"
+              onClick={getFont}
+              data-font-name={fonts.serif}
+            >
               serif
             </li>
             <li
-              className="font"
+              className="font sans-serif"
               onClick={getFont}
               data-font-name={fonts.sansSerif}
             >
               sans-serif
             </li>
             <li
-              className="font"
+              className="font monospace"
               onClick={getFont}
               data-font-name={fonts.monospace}
             >

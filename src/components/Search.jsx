@@ -2,7 +2,13 @@
 function Search({ search, getWord, searchInDictionary }) {
   return (
     <div className="search">
-      <input type="text" name="search" value={search} onChange={getWord} />
+      <input
+        type="text"
+        name="search"
+        value={search}
+        onChange={getWord}
+        placeholder="Search For Words"
+      />
       <img src="./search.svg" alt="" onClick={searchInDictionary} />
     </div>
   );

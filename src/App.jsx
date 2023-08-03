@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import "./App.css";
+import "./App.scss";
 import {
   useDefinitions,
   useSearch,
@@ -32,7 +32,6 @@ function App() {
   const searchInDictionary = () => {
     setWord(search);
   };
-  console.log(search);
   useEffect(() => {
     fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
       .then((response) => response.json())
@@ -46,18 +45,24 @@ function App() {
         setIsLoading(false);
       });
     localStorage.setItem("font", JSON.stringify(font));
-  }, [font, word]);
+    localStorage.setItem("search", JSON.stringify(search));
+    localStorage.setItem("theme", JSON.stringify(isDarkTheme));
+  }, [font, word, isDarkTheme]);
 
-  console.log(definitions[0]);
+  let style = {
+    fontFamily: font,
+  };
+
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="loading" style={style}>
+        Please Wait...
+      </div>
+    );
   }
-
   if (error) {
     return <div>Error: {error}</div>;
   }
-
-  console.log(definitions[0]);
 
   const getWord = (e) => {
     setSearch(e.target.value);
@@ -76,9 +81,6 @@ function App() {
     }
   };
 
-  let style = {
-    fontFamily: font,
-  };
   let fonts = {
     serif: "serif",
     sansSerif: "sans-serif",
@@ -96,7 +98,7 @@ function App() {
   };
 
   return (
-    <div className="App" style={style}>
+    <div className={isDarkTheme ? "App dark" : "App"} style={style}>
       <div className="container">
         <Header
           showList={showList}
