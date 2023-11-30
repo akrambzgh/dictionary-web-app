@@ -9,10 +9,6 @@ This is a Dictionary Web App, a simple web application that allows users to sear
 - Responsive and user-friendly design.
 - Quick and easy word lookup.
 
-## Demo
-
-You can try out the live demo of the application by visiting [https://example.com/dictionary-app](https://example.com/dictionary-app)
-
 ## Installation
 
 To run the Dictionary Web App locally, follow these steps:
@@ -30,23 +26,6 @@ cd dictionary-web-app
 ```
 
 3. Open index.html in your web browser to use the application.
-
-## API Usage
-
-The app utilizes the "Dictionary API" to fetch word data. The API endpoints are as follows:
-
-- Endpoint: https://api.dictionary.com
-- Method: GET
-- Parameters: The API accepts the following query parameters:
-  - word (required): The word to look up.
-  - language (optional): The language code (e.g., "en" for English, "es" for Spanish).
-
-To use the API, you'll need to sign up for an API key from the "Dictionary API" website and replace the placeholder API key in the script.js file with your actual API key:
-
-```js
-const API_KEY = "YOUR_API_KEY_HERE";
-```
-
 ## Contributions
 
 Contributions to the Dictionary Web App are welcome! If you find any bugs, have feature requests, or want to improve the code, feel free to open issues and submit pull requests.
